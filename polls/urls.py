@@ -7,4 +7,5 @@ urlpatterns = patterns('polls.views',
     url(r'^(?P<poll_id>\d+)/$','detail'),
     url(r'^(?P<poll_id>\d+)/results/$','results'),
     url(r'^(?P<poll_id>\d+)/vote/$','vote'),
+    url(r'^(?P<poll_id>\d+)/ajaxvote/$', 'ajax_vote')
 )

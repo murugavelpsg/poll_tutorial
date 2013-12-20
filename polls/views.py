@@ -42,3 +42,14 @@ def vote(request, poll_id):
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls.views.results', args=(p.id,)))
 
+def ajax_vote(request, poll_id):
+    p = get_object_or_404(Poll, pk=poll_id)
+    try:
+        selected_choice = p.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        return HttpResponseServerError("You didn't select a choice.")
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        return HttpResponseRedirect(p.get_absolute_url())
+
